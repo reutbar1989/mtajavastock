@@ -1,19 +1,26 @@
-package com.mta.javacourse;
+package com.mta.javacourse.service;
 
 import java.io.IOException;
-import java.util.Date; 
+import java.util.Date;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mta.javacourse.model.Portfolio;
 import com.mta.javacourse.model.Stock;
 
-public class StockDetailsServlet extends HttpServlet {
-	
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.setContentType("text/html");
-		
+/**
+ * @author Reut Barhoom
+ * This class define a new potrfolio and sets values into it.   
+ */
+
+public class PortfolioService {
+
+	Portfolio myPortfolio = new Portfolio();
+
+	public Portfolio getPortfolio(){
+
 		Stock stock1 = new Stock();
 		Stock stock2 = new Stock();
 		Stock stock3 = new Stock();
@@ -21,31 +28,34 @@ public class StockDetailsServlet extends HttpServlet {
 
 		dateD.setDate(15);
 		dateD.setMonth(10);
+
 		dateD.setYear(114);
 		dateD.setHours(0);
 		dateD.setMinutes(0);
-		dateD.setSeconds(0);
+		dateD.setSeconds(0);		
 
 		stock1.setSymbol ("PIH");
 		stock1.setAsk (12.4f);
 		stock1.setBid (13.1f);
 		stock1.setDate (dateD);
-				
+
+		myPortfolio.addStock (stock1);
+
 		stock2.setSymbol ("AAL");
 		stock2.setAsk (5.5f);
 		stock2.setBid (5.78f);
 		stock2.setDate(dateD);
-		
+
+		myPortfolio.addStock (stock2);
+
 		stock3.setSymbol ("CAAS");
 		stock3.setAsk (31.5f);
 		stock3.setBid (31.2f);
 		stock3.setDate (dateD);
 
-		resp.getWriter().println (" My Stock: <p> ");
-		resp.getWriter().println (" "+stock1.getHtmlDescription()+" <br> ");
-		resp.getWriter().println (" "+stock2.getHtmlDescription()+" <br> ");
-		resp.getWriter().println (" "+stock3.getHtmlDescription()+" <br> ");
-		
+		myPortfolio.addStock (stock3);
+
+		return myPortfolio;
 	}
 
 }

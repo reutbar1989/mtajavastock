@@ -1,4 +1,4 @@
-package com.mta.javacourse;
+package com.mta.javacourse.model;
 
 public class Stock{	
 	
