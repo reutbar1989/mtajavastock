@@ -12,7 +12,8 @@ import com.mta.javacourse.model.Stock;
 
 /**
  * @author Reut Barhoom
- * This class define a new potrfolio and sets values into it.   
+ * This class define a new potrfolio and sets values into it.
+ * Responsible for my stock portfolio, and checks every day the stock status.
  */
 
 public class PortfolioService {
@@ -24,6 +25,7 @@ public class PortfolioService {
 		Stock stock1 = new Stock();
 		Stock stock2 = new Stock();
 		Stock stock3 = new Stock();
+	
 		Date dateD = new java.util.Date();
 
 		dateD.setDate(15);
@@ -55,6 +57,9 @@ public class PortfolioService {
 
 		myPortfolio.addStock (stock3);
 
+		//Stock stock44 = new Stock(stock1);
+		//myPortfolio.addStock (stock44);
+		
 		return myPortfolio;
 	}
 

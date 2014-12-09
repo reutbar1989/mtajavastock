@@ -1,11 +1,36 @@
 package com.mta.javacourse.model;
 
+/**
+ * @author Reut Barhoom
+ * since December 2014 
+ */
+
 public class Stock{	
 	
 	private String symbol;
 	private float ask;
 	private float bid;
 	private java.util.Date date;
+	
+	public Stock (){}
+
+	public Stock (Stock stock){
+		
+		setSymbol (stock.getSymbol());
+		setAsk (stock.getAsk());
+		setBid(stock.getBid());
+		date = new java.util.Date (stock.date.getTime());
+		
+	}
+	
+	public Stock(String symbol, float ask, float bid, java.util.Date date){
+		
+		setSymbol(symbol);
+		setAsk (ask);
+		setBid (bid);
+		setDate (date);
+		
+	}
 	
 	public String getSymbol(){
 		return symbol;
