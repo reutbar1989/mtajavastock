@@ -4,24 +4,6 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-	<servlet>
-		<servlet-name>Reutbar1989</servlet-name>
-		<servlet-class>com.mta.javacourse.Reutbar1989Servlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Reutbar1989</servlet-name>
-		<url-pattern>/reutbar1989</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>StockDetails</servlet-name>
-		<servlet-class>com.mta.javacourse.StockDetailsServlet</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>StockDetails</servlet-name>
-		<url-pattern>/stockdetails</url-pattern>
-	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>PortfolioServlet</servlet-name>

@@ -12,8 +12,10 @@ public class Stock{
 	private float bid;
 	private java.util.Date date;
 	
+	/** c'tor  */
 	public Stock (){}
 
+	/** copy c'tor  */
 	public Stock (Stock stock){
 		
 		setSymbol (stock.getSymbol());
@@ -23,6 +25,7 @@ public class Stock{
 		
 	}
 	
+	/** c'tor  */
 	public Stock(String symbol, float ask, float bid, java.util.Date date){
 		
 		setSymbol(symbol);
@@ -63,6 +66,7 @@ public class Stock{
 		date = dateD;
 	}
 	
+	/** prints all of stock's parameters */
 	public String getHtmlDescription(){
 		String stockHtmlDetailString = "<b> Stock symbol </b>: "+getSymbol()+", <b> Ask </b>: "+getAsk()+", <b> Bid </b>: "+getBid()+", <b> Date </b>:" +date;
 		return stockHtmlDetailString; 			

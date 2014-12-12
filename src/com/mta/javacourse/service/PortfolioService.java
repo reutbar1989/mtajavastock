@@ -56,9 +56,6 @@ public class PortfolioService {
 		stock3.setDate (dateD);
 
 		myPortfolio.addStock (stock3);
-
-		//Stock stock44 = new Stock(stock1);
-		//myPortfolio.addStock (stock44);
 		
 		return myPortfolio;
 	}
