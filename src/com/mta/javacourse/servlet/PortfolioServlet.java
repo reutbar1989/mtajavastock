@@ -43,7 +43,6 @@ public class PortfolioServlet  extends HttpServlet {
  		resp.getWriter().println(portfolio.getHtmlString() + "<br>"); 
  		resp.getWriter().println(portfolio2.getHtmlString() + "<br>"); 
 	 
-		 
 		}
 	}
 }

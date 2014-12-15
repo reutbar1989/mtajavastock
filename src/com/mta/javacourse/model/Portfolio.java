@@ -17,7 +17,7 @@ public class Portfolio {
 	public String title;
 	private int portfolioSize = 0; 
 
-	public Stock[] stocks = new Stock[MAX_PORTFOLIO_SIZE];	;
+	public Stock[] stocks = new Stock[MAX_PORTFOLIO_SIZE];	
 	public StockStatus[] stocksStatus = new StockStatus [MAX_PORTFOLIO_SIZE];
 
 	/** c'tor  */
@@ -28,7 +28,7 @@ public class Portfolio {
 
 		this.setTitle (portfolio.getTitle());
 		this.setPortfolioSize (portfolio.getPortfolioSize());	
-
+	
 		for (int i = 0; i < portfolio.portfolioSize; i++){
 			stocks[i] = new Stock (portfolio.getStocks()[i]);
 		}
@@ -104,9 +104,13 @@ public class Portfolio {
 
 	/** prints the stocks with a line space */
 	public String getHtmlString(){
-		String getHtmlString = " "+getTitle()+" <br> "+stocks[0].getHtmlDescription()+" <br> "+stocks[1].getHtmlDescription()+" <br> "+stocks[2].getHtmlDescription()+" <br> ";
-		return getHtmlString;		
+		String getHtmlString = getTitle()+ "<br>" ;
+		for (int i = 0; i < portfolioSize; i++){
+			getHtmlString += " <b> Stock </b> "+(i+1)+" : "+stocks[i].getHtmlDescription()+" <br> " ;
+		}
+		return getHtmlString; 	
 	}
+	
 
 	/** inner class that checks the stocks status  */
 	public class StockStatus {
