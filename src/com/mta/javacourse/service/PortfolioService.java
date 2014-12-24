@@ -22,6 +22,10 @@ public class PortfolioService {
 
 	public Portfolio getPortfolio(){
 
+		myPortfolio.setTitle("Exercise 7 portfolio");
+		
+		myPortfolio.updateBalance(10000);
+				
 		Stock stock1 = new Stock();
 		Stock stock2 = new Stock();
 		Stock stock3 = new Stock();
@@ -29,7 +33,7 @@ public class PortfolioService {
 		Date dateD = new java.util.Date();
 
 		dateD.setDate(15);
-		dateD.setMonth(10);
+		dateD.setMonth(11);
 
 		dateD.setYear(114);
 		dateD.setHours(0);
@@ -37,27 +41,34 @@ public class PortfolioService {
 		dateD.setSeconds(0);		
 
 		stock1.setSymbol ("PIH");
-		stock1.setAsk (12.4f);
-		stock1.setBid (13.1f);
+		stock1.setAsk (10f);
+		stock1.setBid (8.5f);
 		stock1.setDate (dateD);
 
 		myPortfolio.addStock (stock1);
 
 		stock2.setSymbol ("AAL");
-		stock2.setAsk (5.5f);
-		stock2.setBid (5.78f);
+		stock2.setAsk (30f);
+		stock2.setBid (25.5f);
 		stock2.setDate(dateD);
 
 		myPortfolio.addStock (stock2);
 
 		stock3.setSymbol ("CAAS");
-		stock3.setAsk (31.5f);
-		stock3.setBid (31.2f);
+		stock3.setAsk (20f);
+		stock3.setBid (15.5f);
 		stock3.setDate (dateD);
 
 		myPortfolio.addStock (stock3);
 		
-		myPortfolio.setTitle("<h1>Portfolio #1</h1>"); 
+
+		myPortfolio.buyStock("PIH", 20);
+		myPortfolio.buyStock("AAL", 30);
+		myPortfolio.buyStock("CAAS", 40);
+		
+		myPortfolio.sellStock("AAL", -1);
+		myPortfolio.removeStock("CAAS");
+		
 		
 		return myPortfolio;
 	}
