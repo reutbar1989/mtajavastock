@@ -67,6 +67,7 @@ public class Portfolio {
 		}
 		if ( portfolioSize < MAX_PORTFOLIO_SIZE ){
 			stocks [portfolioSize] = s;
+			stocksStatus [portfolioSize] = new StockStatus(s.getSymbol(), s.getBid(), s.getAsk(), new Date(s.getDate().getTime()), ALGO_RECOMMENDATION.DO_NOTHING, 0);
 			stocksStatus [portfolioSize].setSymbol(s.getSymbol()); 
 			stocksStatus [portfolioSize].setCurrentBid(s.getBid());
 			stocksStatus [portfolioSize].setCurrentAsk(s.getAsk());	
@@ -83,10 +84,10 @@ public class Portfolio {
 
 	/** remove stock (and sell it) from portfolio */
 	public boolean removeStock(String stockSymbol){
-		boolean sell = false;
+		boolean sell = false; 
 
-		for (int index = 0; index < portfolioSize; index++){
-			if (stockSymbol == stocks[index].getSymbol()){
+		for (int n = 0; n < portfolioSize; n++){
+			if (stockSymbol == stocks[n].getSymbol()){
 				sell = sellStock (stockSymbol, -1);
 				if (sell == true){
 					if(stockSymbol == stocks [portfolioSize].getSymbol()){
@@ -94,24 +95,26 @@ public class Portfolio {
 						return true;
 					}
 					else{
-						for (int i = index; i < portfolioSize; i++){
-							stocks[i] = stocks[i+1];
-							stocksStatus[i] = stocksStatus[i+1]; 
-							portfolioSize--;
-							return true;
+						for (int i = 0; i < portfolioSize; i++){
+							if (stockSymbol == stocks[i].getSymbol()){	
+								for (int index = i; index < portfolioSize; index++){
+									stocks[index] = stocks[index+1];
+									stocksStatus[index] = stocksStatus[index+1]; 	
+								}
+							}
 						}
+						portfolioSize--;
+						return true;
 					}
 				}
-				else{
-					System.out.println (" The stock didn't sell so it can't be removed ");
-					return false;
-				}
+				System.out.println (" The stock didn't sell so it can't be removed ");
+				return false;
 			}
 		}
-
 		System.out.println (" This stock does not exists ");
 		return false;
 	}
+
 
 	/** sell stock from portfolio */
 	public boolean sellStock (String symbol, int quantity){
