@@ -82,7 +82,7 @@ public class Portfolio {
 
 	}
 
-	/** remove stock (and sell it) from portfolio */
+	/** remove stock (and sell it) from portfolio and returns true or false if the remove succeed or not */
 	public boolean removeStock(String stockSymbol){
 		boolean sell = false; 
 
@@ -90,8 +90,10 @@ public class Portfolio {
 			if (stockSymbol == stocks[n].getSymbol()){
 				sell = sellStock (stockSymbol, -1);
 				if (sell == true){
-					if(stockSymbol == stocks [portfolioSize].getSymbol()){
+					if(stockSymbol == stocks [portfolioSize-1].getSymbol()){
 						portfolioSize--;
+						stocks [portfolioSize-1] = null;
+						stocksStatus [portfolioSize-1] = null;
 						return true;
 					}
 					else{
@@ -101,10 +103,12 @@ public class Portfolio {
 									stocks[index] = stocks[index+1];
 									stocksStatus[index] = stocksStatus[index+1]; 	
 								}
+								portfolioSize--;
+								stocks [portfolioSize-1] = null;
+								stocksStatus [portfolioSize-1] = null;
+								return true;
 							}
 						}
-						portfolioSize--;
-						return true;
 					}
 				}
 				System.out.println (" The stock didn't sell so it can't be removed ");
@@ -116,7 +120,7 @@ public class Portfolio {
 	}
 
 
-	/** sell stock from portfolio */
+	/** sell stock from portfolio and returns true or false if the sell succeed or not */
 	public boolean sellStock (String symbol, int quantity){
 
 		for (int i = 0; i < portfolioSize; i++){
@@ -136,7 +140,7 @@ public class Portfolio {
 					return true;	
 				}
 				else{
-					System.out.println(" You don't have enough stocks to sail ");
+					System.out.println(" Not enough stocks to sell ");
 					return false;
 				}
 			}
@@ -147,7 +151,7 @@ public class Portfolio {
 	}
 
 
-	/** buy stock for portfolio */
+	/** buy stock for portfolio and returns	 true or false if the purchase succeed or not */
 	public boolean buyStock (String symbol,int quantity){
 
 		for (int i = 0; i < portfolioSize; i++){
@@ -173,12 +177,12 @@ public class Portfolio {
 		return false;
 	}
 
-	/** return value of all stocks */
-	public float getStocksValue (StockStatus[] stocksStatus){
+	/** returns value of all stocks in portfolio */
+	public float getStocksValue (Stock[] stocks){
 		float stocksValue = 0;
 
-		for (int i = 0; i < portfolioSize; i++){
-			stocksValue += ((stocksStatus[i].getStockQuantity() )* (stocksStatus[i].getCurrentBid()));
+		for (int i = 0; i < portfolioSize-1; i++){
+			stocksValue = stocksValue + stocksStatus[i].getStockQuantity() * stocksStatus[i].getCurrentBid();
 		}
 
 		return stocksValue; 
@@ -188,20 +192,24 @@ public class Portfolio {
 		return balance;
 	}
 
-	/**  return value of all stocks and balance together */
-	public float getTotalValue (StockStatus[] stocksStatus){
+	/**  return value of all stocks in portfolio and balance together */
+	public float getTotalValue (Stock[] stocks){
 		float totalValue = 0;
 
-		totalValue = (getBalance() + getStocksValue(stocksStatus));
+		totalValue = (getBalance() + getStocksValue(stocks));
 
 		return totalValue;
 	}
 
-	/** prints the  portfolio's title, portfolio's value, stocks value and balance */
+	/** prints portfolio's title and portfolio's description: total value, stocks value and balance */
 	public String getHtmlString(){
 
-		String getHtmlString = " "+getTitle()+" <br> Total Potrfolio Value : "+getTotalValue(stocksStatus)+"$, Total Stocks Value : "+getStocksValue(stocksStatus)+"$, Balance : "+getBalance()+"$ ";
+		String getHtmlString = " "+getTitle()+" <br> <br> <b> Total Portfolio Value </b> : "+getTotalValue(stocks)+"$, <b> Total Stocks Value </b> : "+getStocksValue(stocks)+"$, <b> Balance </b> : "+getBalance()+"$ <br> <br> ";
 
+		for(int i = 0; i < portfolioSize-1; i++){
+			getHtmlString += " <b> Stock </b> "+(i+1)+": "+stocks[i].getHtmlDescription()+" <br> ";
+		}
+			
 		return getHtmlString; 	
 	}
 
