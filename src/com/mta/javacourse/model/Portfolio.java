@@ -86,8 +86,8 @@ public class Portfolio {
 				sell = sellStock (stockSymbol, -1);
 				if (sell == true){
 					if(stockSymbol == stocksStatus [portfolioSize-1].getSymbol()){
-						portfolioSize--;
 						stocksStatus [portfolioSize-1] = null;
+						portfolioSize--;
 						return true;
 					}
 					else{
@@ -96,8 +96,8 @@ public class Portfolio {
 								for (int index = i; index < portfolioSize; index++){
 									stocksStatus[index] = stocksStatus[index+1]; 	
 								}
-								portfolioSize--;
 								stocksStatus [portfolioSize-1] = null;
+								portfolioSize--;
 								return true;
 							}
 						}
@@ -194,7 +194,7 @@ public class Portfolio {
 
 		String getHtmlString = " "+getTitle()+" <br> <br> <b> Total Portfolio Value </b> : "+getTotalValue(stocksStatus)+"$, <b> Total Stocks Value </b> : "+getStocksValue(stocksStatus)+"$, <b> Balance </b> : "+getBalance()+"$ <br> <br> ";
 
-		for(int i = 0; i < portfolioSize-1; i++){
+		for(int i = 0; i < portfolioSize; i++){
 			getHtmlString += " <b> Stock </b> "+(i+1)+": "+stocksStatus[i].getHtmlDescription()+" <br> ";
 		}
 			
