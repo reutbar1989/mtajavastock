@@ -55,20 +55,13 @@ public class Portfolio {
 	public void addStock (Stock stock){
 
 		for (int i = 0; i < portfolioSize; i++){
-			if (stock.getSymbol() == stocksStatus[i].getSymbol()){
+			if (stock.getSymbol().equals(stocksStatus[i].getSymbol())){
 				System.out.println (" This stock is allready exists ");
-				break;
+				return;
 			}			
 		}
 		if ( portfolioSize < MAX_PORTFOLIO_SIZE ){
-			//stocks [portfolioSize] = s;
 			stocksStatus [portfolioSize] = new StockStatus(stock.getSymbol(), stock.getBid(), stock.getAsk(), new Date(stock.getDate().getTime()), ALGO_RECOMMENDATION.DO_NOTHING, 0);
-			stocksStatus [portfolioSize].setSymbol(stock.getSymbol()); 
-			stocksStatus [portfolioSize].setBid(stock.getBid());
-			stocksStatus [portfolioSize].setAsk(stock.getAsk());	
-			stocksStatus [portfolioSize].setDate(stock.getDate());
-			stocksStatus [portfolioSize].setRecommendation(ALGO_RECOMMENDATION.DO_NOTHING);
-			stocksStatus [portfolioSize].setStockQuantity(0);
 			portfolioSize++;
 		}
 		else{
@@ -82,17 +75,17 @@ public class Portfolio {
 		boolean sell = false; 
 
 		for (int n = 0; n < portfolioSize; n++){
-			if (stockSymbol == stocksStatus[n].getSymbol()){
+			if (stockSymbol.equals(stocksStatus[n].getSymbol())){
 				sell = sellStock (stockSymbol, -1);
 				if (sell == true){
-					if(stockSymbol == stocksStatus [portfolioSize-1].getSymbol()){
+					if(stockSymbol.equals(stocksStatus [portfolioSize-1].getSymbol())){
 						stocksStatus [portfolioSize-1] = null;
 						portfolioSize--;
 						return true;
 					}
 					else{
 						for (int i = 0; i < portfolioSize; i++){
-							if (stockSymbol == stocksStatus[i].getSymbol()){	
+							if (stockSymbol.equals(stocksStatus[i].getSymbol())){	
 								for (int index = i; index < portfolioSize; index++){
 									stocksStatus[index] = stocksStatus[index+1]; 	
 								}
@@ -116,7 +109,7 @@ public class Portfolio {
 	public boolean sellStock (String symbol, int quantity){
 
 		for (int i = 0; i < portfolioSize; i++){
-			if (symbol == stocksStatus[i].getSymbol()){
+			if (symbol.equals(stocksStatus[i].getSymbol())){
 				if (quantity == -1){
 					updateBalance ((stocksStatus[i].getStockQuantity()) * (stocksStatus[i].getBid())); 
 					stocksStatus[i].setStockQuantity(0);
@@ -147,7 +140,7 @@ public class Portfolio {
 	public boolean buyStock (String symbol,int quantity){
 
 		for (int i = 0; i < portfolioSize; i++){
-			if (symbol == stocksStatus[i].getSymbol()){
+			if (symbol.equals(stocksStatus[i].getSymbol())){
 				if ((quantity == -1) && (balance - (stocksStatus[i].getAsk() * quantity) >= 0)){
 					stocksStatus[i].setStockQuantity ((int) ((balance) / (stocksStatus[i].getAsk())));
 					updateBalance (-(balance)); 
@@ -181,10 +174,10 @@ public class Portfolio {
 	}
 
 	/**  return value of all stocks in portfolio and balance together */
-	public float getTotalValue (Stock[] stocks){
+	public float getTotalValue (){
 		float totalValue = 0;
 
-		totalValue = (getBalance() + getStocksValue(stocks));
+		totalValue = (getBalance() + getStocksValue(stocksStatus));
 
 		return totalValue;
 	}
@@ -192,7 +185,7 @@ public class Portfolio {
 	/** prints portfolio's title and portfolio's description: total value, stocks value and balance */
 	public String getHtmlString(){
 
-		String getHtmlString = " "+getTitle()+" <br> <br> <b> Total Portfolio Value </b> : "+getTotalValue(stocksStatus)+"$, <b> Total Stocks Value </b> : "+getStocksValue(stocksStatus)+"$, <b> Balance </b> : "+getBalance()+"$ <br> <br> ";
+		String getHtmlString = " "+getTitle()+" <br> <br> <b> Total Portfolio Value </b> : "+getTotalValue()+"$, <b> Total Stocks Value </b> : "+getStocksValue(stocksStatus)+"$, <b> Balance </b> : "+getBalance()+"$ <br> <br> ";
 
 		for(int i = 0; i < portfolioSize; i++){
 			getHtmlString += " <b> Stock </b> "+(i+1)+": "+stocksStatus[i].getHtmlDescription()+" <br> ";
