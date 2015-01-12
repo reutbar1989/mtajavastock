@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mta.javacourse.exception.BalanceException;
+import com.mta.javacourse.exception.PortfolioFullException;
+import com.mta.javacourse.exception.StockAlreadyExistsException;
+import com.mta.javacourse.exception.StockNotExistException;
 import com.mta.javacourse.model.Portfolio;
 import com.mta.javacourse.model.Stock;
 import com.mta.javacourse.service.PortfolioService;
@@ -21,11 +25,14 @@ public class PortfolioServlet  extends HttpServlet {
 		resp.setContentType("text/html"); {
 
 			PortfolioService portfolioService = new PortfolioService();
-			Portfolio portfolio = portfolioService.getPortfolio(); 
-			Stock[] stocks = portfolio.getStocksStatus();
+			Portfolio portfolio;
 
-			resp.getWriter().println(portfolio.getHtmlString() + "<br>"); 
-
+			try{
+				portfolio = portfolioService.getPortfolio();
+				resp.getWriter().println(portfolio.getHtmlString() + "<br>"); 
+			} catch (Exception e) {
+				resp.getWriter().println(e.getMessage());
+			}
 		}
 	}
 }

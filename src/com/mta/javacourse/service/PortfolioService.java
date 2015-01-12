@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mta.javacourse.exception.BalanceException;
+import com.mta.javacourse.exception.PortfolioFullException;
+import com.mta.javacourse.exception.StockAlreadyExistsException;
+import com.mta.javacourse.exception.StockNotExistException;
 import com.mta.javacourse.model.Portfolio;
 import com.mta.javacourse.model.Stock;
 
@@ -20,7 +24,7 @@ public class PortfolioService {
 
 	Portfolio myPortfolio = new Portfolio();
 
-	public Portfolio getPortfolio(){
+	public Portfolio getPortfolio() throws BalanceException, PortfolioFullException, StockAlreadyExistsException, StockNotExistException {
 
 		myPortfolio.setTitle("Exercise 7 portfolio");
 		
@@ -60,7 +64,7 @@ public class PortfolioService {
 		stock3.setDate (dateD);
 
 		myPortfolio.addStock (stock3);
-		
+		myPortfolio.addStock (stock3);
 
 		myPortfolio.buyStock("PIH", 20);
 		myPortfolio.buyStock("AAL", 30);
