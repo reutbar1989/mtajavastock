@@ -16,6 +16,9 @@ public class StockStatus extends Stock{
 	private int stockQuantity;
 	
 	/** c'tor */
+	public StockStatus (){}
+	
+	/** c'tor */
 	public StockStatus (String symbol, float ask, float bid, java.util.Date date, ALGO_RECOMMENDATION recommendation, int stockQuantity){
 		
 		setSymbol(symbol);
@@ -24,6 +27,11 @@ public class StockStatus extends Stock{
 		setDate (date);
 		setRecommendation(recommendation);
 		setStockQuantity(stockQuantity);
+		
+	}
+	
+	/** c'tor */
+	public StockStatus (Stock stock){
 		
 	}
 

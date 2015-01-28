@@ -4,11 +4,12 @@
 package com.mta.javacourse.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.mta.javacourse.exception.BalanceException;
 import com.mta.javacourse.exception.PortfolioFullException;
 import com.mta.javacourse.exception.StockAlreadyExistsException;
-import com.mta.javacourse.exception.StockNotExistException;
+import com.mta.javacourse.exception.StockNotExistsException;
 
 /**
  * @author Reut Barhoom
@@ -18,7 +19,7 @@ import com.mta.javacourse.exception.StockNotExistException;
 
 public class Portfolio {
 
-	private final static int MAX_PORTFOLIO_SIZE = 5;
+	public final static int MAX_PORTFOLIO_SIZE = 5;
 	public String title;
 	private int portfolioSize = 0; 
 
@@ -50,6 +51,15 @@ public class Portfolio {
 		setBalance (balance);
 
 	}
+	
+	/** c'tor  */
+	public Portfolio (List<StockStatus> stockStatuses){
+		this();
+		
+		for (int i = 0; i < portfolioSize; i++){
+			this.stocksStatus[i] = stockStatuses.get(i);
+		}
+	}
 
 	/** update the amount of balance */
 	public void updateBalance (float amount){
@@ -75,7 +85,7 @@ public class Portfolio {
 	}
 
 	/** remove stock (and sell it) from portfolio and returns true or false if the remove succeed or not */
-	public void removeStock(String stockSymbol) throws StockNotExistException{
+	public void removeStock(String stockSymbol) throws StockNotExistsException{
 
 		for (int n = 0; n < portfolioSize; n++){
 			if (stockSymbol.equals(stocksStatus[n].getSymbol())){
@@ -101,12 +111,12 @@ public class Portfolio {
 
 		}
 		
-		throw new StockNotExistException(stockSymbol);
+		throw new StockNotExistsException(stockSymbol);
 	}
 
 
 	/** sell stock from portfolio and returns true or false if the sell succeed or not */
-	public void sellStock (String symbol, int quantity) throws StockNotExistException {
+	public void sellStock (String symbol, int quantity) throws StockNotExistsException {
 
 		for (int i = 0; i < portfolioSize; i++){
 			if (symbol.equals(stocksStatus[i].getSymbol())){
@@ -131,12 +141,12 @@ public class Portfolio {
 			}
 		}
 
-		throw new StockNotExistException(symbol);
+		throw new StockNotExistsException(symbol);
 	}
 
 
 	/** buy stock for portfolio and returns	 true or false if the purchase succeed or not */
-	public void buyStock (String symbol,int quantity) throws StockNotExistException, BalanceException {
+	public void buyStock (String symbol,int quantity) throws StockNotExistsException, BalanceException {
 
 		for (int i = 0; i < portfolioSize; i++){
 			if (symbol.equals(stocksStatus[i].getSymbol())){
@@ -151,12 +161,12 @@ public class Portfolio {
 					return;
 				}
 				else{
-					throw new BalanceException((quantity * stocksStatus[i].getAsk()), getBalance());
+					throw new BalanceException();
 				}
 			}
 		}
 
-		throw new StockNotExistException(symbol);
+		throw new StockNotExistsException(symbol);
 	}
 
 	/** returns value of all stocks in portfolio */
@@ -191,6 +201,15 @@ public class Portfolio {
 		return getHtmlString; 	
 	}
 
+	public StockStatus findBySymbol(String symbol) {
+
+		for (int i = 0; i < portfolioSize; i++){
+			if (symbol.equals(stocksStatus[i].getSymbol())){
+				return stocksStatus[i];
+			}
+		}
+		return null;
+	} 
 
 	public float getBalance (){
 		return balance;
@@ -223,5 +242,9 @@ public class Portfolio {
 	public void setStocksStatus(StockStatus[] stocksStatus){
 		this.stocksStatus = stocksStatus;
 	}
+	
+	public StockStatus[] getStocks(){ 
+	 		return stocksStatus; 
+ 	}
 
 }
